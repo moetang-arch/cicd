@@ -3,7 +3,10 @@ package core
 type PushEvent struct {
 	DeliveryId string
 
-	Ref          string `json:"ref"` // starts with 'refs/heads/' like 'refs/heads/master'
+	// branches start with 'refs/heads/' like 'refs/heads/master'
+	// tags start with 'refs/tags/' like 'refs/tags/v1.0.0'
+	Ref string `json:"ref"`
+
 	BeforeCommit string `json:"before"`
 	AfterCommit  string `json:"after"`
 	CompareLink  string `json:"compare"`
