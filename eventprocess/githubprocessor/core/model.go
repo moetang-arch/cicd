@@ -40,4 +40,5 @@ type Commit struct {
 
 type Repository struct {
 	FullName string `json:"full_name"`
+	CloneUrl string `json:"clone_url"`
 }

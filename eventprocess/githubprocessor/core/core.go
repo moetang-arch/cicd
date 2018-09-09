@@ -9,17 +9,20 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 )
 
 const (
 	GITHUB_HEADER_EVENT_TYPE  = "X-GitHub-Event"
 	GITHUB_HEADER_DELIVERY_ID = "X-GitHub-Delivery"
 	GITHUB_HEADER_SIGNATURE   = "X-Hub-Signature"
+
+	BRANCH_PREFIX = "refs/heads/"
 )
 
 var (
 	secretKey = "123456"
-	debug     = false
+	debug     = true
 
 	ps = NewPushService()
 
@@ -64,6 +67,16 @@ func Start() {
 			}
 			pushEvent.DeliveryId = deliveryId
 
+			if !strings.HasPrefix(pushEvent.Ref, BRANCH_PREFIX) {
+				if debug {
+					log.Println("ref is not branch. ref:", pushEvent.Ref)
+				}
+				writer.WriteHeader(http.StatusOK)
+				return
+			}
+
+			pushEvent.Ref = pushEvent.Ref[len(BRANCH_PREFIX):]
+
 			if err := ps.SendPushEvent(pushEvent); err != nil {
 				log.Println("send push event to event bus error. error:", err)
 				writer.WriteHeader(http.StatusInternalServerError)
@@ -82,5 +95,5 @@ func Start() {
 		}
 	})
 
-	http.ListenAndServe("127.0.0.1:4567", mux)
+	http.ListenAndServe("0.0.0.0:4567", mux)
 }
