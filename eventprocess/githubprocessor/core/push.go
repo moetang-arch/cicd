@@ -10,9 +10,9 @@ type PushService struct {
 	sender mq.MqSender
 }
 
-func NewPushService() *PushService {
+func NewPushService(addr string) *PushService {
 	ps := new(PushService)
-	sender, err := mq.NewMqSender(mq.TYPE_NSQ, "127.0.0.1:4150")
+	sender, err := mq.NewMqSender(mq.TYPE_NSQ, addr)
 	if err != nil {
 		panic("init mq error. " + err.Error())
 	}
