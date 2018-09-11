@@ -36,12 +36,20 @@ setup master
 setup slave
 ```
 
+### Planning
+
+* support cancelling job
+
 # 4. Testing, Building, Packaging
 
 ```
 tbp agent
 tbp service
 ```
+
+### Planning
+
+* support cancelling job
 
 # 5. Deployment
 
