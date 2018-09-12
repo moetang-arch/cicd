@@ -32,8 +32,8 @@ github processor
 contains:
 
 ```
-setup master
-setup slave
+setup controller
+setup agent
 ```
 
 ### Planning
