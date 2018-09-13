@@ -52,3 +52,24 @@ func (this *StoreService) Close() error {
 func (this *StoreService) Init(fn func(helperFactory HelperFactory) error) error {
 	return fn(this)
 }
+
+func (this *StoreService) InsertInto(tableName string, key []byte, data []byte) error {
+	return this.db.Update(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte(tableName))
+		err := b.Put(key, data)
+		if err != nil {
+			return err
+		}
+		return nil
+	})
+}
+
+func (this *StoreService) Get(tableName string, key []byte) ([]byte, error) {
+	var result []byte
+	err := this.db.View(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte(tableName))
+		result = b.Get(key)
+		return nil
+	})
+	return result, err
+}
