@@ -73,3 +73,20 @@ func (this *StoreService) Get(tableName string, key []byte) ([]byte, error) {
 	})
 	return result, err
 }
+
+func (this *StoreService) Modify(tableName string, key []byte, data []byte) (modified bool, err error) {
+	err = this.db.Update(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte(tableName))
+		v := b.Get(key)
+		if v == nil {
+			modified = false
+			return nil
+		}
+		e := b.Put(key, data)
+		if e != nil {
+			return e
+		}
+		return nil
+	})
+	return
+}
