@@ -31,6 +31,7 @@ func main() {
 		helper := helperFactory.GetHelper()
 		createTableFunc(helper.CreateTable, TableTemp)
 		createTableFunc(helper.CreateTable, TableRepository)
+		return
 	})
 	if err != nil {
 		panic(err)
