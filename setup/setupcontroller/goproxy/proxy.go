@@ -2,22 +2,9 @@ package goproxy
 
 import (
 	"net/http"
-	"strconv"
-	"fmt"
 )
 
-func StartSync(port int) {
-	err := http.ListenAndServe("0.0.0.0:"+strconv.Itoa(port), Handler{})
-	if err != nil {
-		panic(err)
-	}
-}
-
-type Handler struct {
-}
-
-func (Handler) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
-	/*
+/*
 	1. get level with
 	a list of all known versions of the given module, one per line
 	/????/????/@v/list
@@ -50,8 +37,10 @@ func (Handler) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	6. serving $GOPATH/pkg/mod/cache/download at (or copying it to)
 	   https://example.com/proxy would let other users
 	   access those cached module versions with GOPROXY=https://example.com/proxy.
-	 */
-
-	fmt.Println(req.RequestURI)
-	resp.WriteHeader(http.StatusOK)
+*/
+func StartSync(addr string, path string) {
+	err := http.ListenAndServe(addr, http.FileServer(http.Dir(path)))
+	if err != nil {
+		panic(err)
+	}
 }
