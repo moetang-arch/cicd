@@ -3,8 +3,8 @@ package main
 import (
 	"io"
 
-	"github.com/moetang-arch/cicd/shared/mq"
 	"github.com/moetang-arch/cicd/shared"
+	"github.com/moetang-arch/cicd/shared/mq"
 )
 
 func startNsq(nsqAddr string, fn func(data []byte) error) (io.Closer, error) {

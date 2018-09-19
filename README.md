@@ -37,6 +37,11 @@ setup controller
 setup agent
 ```
 
+### Supported Projects
+
+* no go.mod project with no dependencies
+* go.mod project with dependencies
+
 ### Requirement
 
 * Use `go mod` for your project. Then only way to support dependencies.
