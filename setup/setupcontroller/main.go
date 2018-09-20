@@ -107,3 +107,7 @@ func envSetup() {
 		//TODO 5. clean up environment: delete TEMP_PATH
 	}
 }
+
+func rollbackEvent() {
+	//FIXME finish this function to support rollback event when error occurs
+}
