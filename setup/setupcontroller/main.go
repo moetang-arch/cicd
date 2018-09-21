@@ -99,13 +99,28 @@ func envSetup() {
 			logger.Println("prepare root folder error.", err)
 			return
 		}
-		//TODO 2. checkout code
-		//TODO 3. try to load go.mod
-		//TODO 3.1. run `GOPATH=SHARED_PATH go mod download <module>` for each `require` element of `go mod edit -json go.mod`
-		//TODO 3.2. run `GOCACHE=off GOPATH=TEMP_PATH GOPROXY=GOPROXY_CONFIG go mod tidy` in the source folder
+		// 2. checkout code
+		codePath, err := setupshared.CheckoutCode(rootFolder, pe)
+		if err != nil {
+			logger.Println("checkout code error.", err)
+			return
+		}
+		// 3. try to load go.mod
+		gomodContent, err := setupshared.LoadGoModFile(filepath.Join(codePath, "go.mod"))
+		if err != nil {
+			logger.Println("load go.mod file error.", err)
+			return
+		}
+		if len(gomodContent) > 0 {
+			//TODO 3.1. run `GOPATH=SHARED_PATH go mod download <module>` for each `require` element of `go mod edit -json go.mod`
+			//TODO 3.2. run `GOCACHE=off GOPATH=TEMP_PATH GOPROXY=GOPROXY_CONFIG go mod tidy` in the source folder
+		}
 		//TODO 4. external: invoke testing,building,packaging
 		//TODO 5. clean up environment: delete TEMP_PATH
 	}
+}
+func checkoutCode(s string) {
+
 }
 
 func rollbackEvent() {

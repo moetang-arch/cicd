@@ -3,6 +3,8 @@ package setupshared
 import (
 	"path/filepath"
 	"os"
+
+	"github.com/moetang-arch/cicd/shared/model"
 )
 
 func PrepareRootFolder(root string) (string, error) {
@@ -12,4 +14,12 @@ func PrepareRootFolder(root string) (string, error) {
 		return "", err
 	}
 	return rootFolder, nil
+}
+
+func CheckoutCode(root string, pe *model.PushEvent) (codepath string, err error) {
+	//TODO
+}
+
+func LoadGoModFile(path string) (content string, err error) {
+	//TODO
 }
