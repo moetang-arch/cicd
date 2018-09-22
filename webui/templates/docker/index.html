@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Docker Management</title>
+
+    <style type="text/css">
+        tr {
+            border: black solid 1px;
+        }
+
+        td {
+            border: black solid 1px;
+        }
+
+        th {
+            border: black solid 1px;
+        }
+
+        table {
+            border: black solid 1px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Docker Management</h1>
+
+<hr/>
+
+<div>Images</div>
+
+<form action="#" method="get">
+    Pull Image: <input name="image"/>
+    <button type="submit">pull</button>
+</form>
+
+{{ $imagesLen := len .Images }}
+{{if gt $imagesLen 0}}
+<table>
+    <tr>
+        <th>image name</th>
+        <th>tags</th>
+        <th>operation</th>
+    </tr>
+
+{{range .Images}}
+    <tr>
+        <td>{{.UseName}}</td>
+        <td>
+        {{range .Tags}}
+        {{.}},
+        {{end}}
+        </td>
+        <td>
+            <div>
+                <form action="/docker/delete_image/{{.UseName}}" method="get">
+                    <button type="submit">delete</button>
+                </form>
+                <form action="/docker/create_temp_container/{{.UseName}}" method="get">
+                    <button>create temporary container</button>
+                </form>
+            </div>
+        </td>
+    </tr>
+{{end}}
+
+</table>
+{{else}}
+no images found
+{{end}}
+
+<hr/>
+
+<div>Containers</div>
+
+<form action="#" method="get">
+    <button type="submit">delete all containers</button>
+</form>
+
+<form action="#" method="get">
+    <button type="submit">stop all containers</button>
+</form>
+
+<form action="#" method="get">
+    <button type="submit">start all containers</button>
+</form>
+
+{{ $containerLen := len .Containers }}
+{{if gt $containerLen 0}}
+<table>
+    <tr>
+        <th>container id</th>
+        <th>image</th>
+        <th>command</th>
+        <th>state</th>
+        <th>operation</th>
+    </tr>
+
+{{range .Containers}}
+    <tr>
+        <td>{{.Id}}</td>
+        <td>{{.Image}}</td>
+        <td>{{.Command}}</td>
+        <td>{{.State}}</td>
+        <td>
+            <div>
+                <form action="/docker/delete_container/{{.Id}}" method="get">
+                    <button type="submit">delete</button>
+                </form>
+                <form action="/docker/delete_containers_by_image/{{.Image}}" method="get">
+                    <button type="submit">delete all by same image</button>
+                </form>
+                <form action="#" method="get">
+                    <button type="submit">start</button>
+                </form>
+                <form action="#" method="get">
+                    <button type="submit">stop</button>
+                </form>
+                <form action="#" method="get">
+                    <button type="submit">restart</button>
+                </form>
+            </div>
+        </td>
+    </tr>
+{{end}}
+
+</table>
+{{else}}
+no containers found
+{{end}}
+
+</body>
+</html>
