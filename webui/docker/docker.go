@@ -93,6 +93,7 @@ type Container struct {
 	Image   string
 	Command string
 	State   string
+	Name    string
 }
 
 func (this *Endpoint) CreateAnonymousContainer(img string) error {
@@ -128,6 +129,7 @@ func (this *Endpoint) ListAllContainers() ([]Container, error) {
 			Image:   v.Image,
 			Command: v.Command,
 			State:   v.State,
+			Name:    v.Names[0], // using first name
 		})
 	}
 

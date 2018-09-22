@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	skipTest = false
+	skipTest = true
 
 	DOCKER_ENDPOINT = "tcp://192.168.31.201:2001"
 )

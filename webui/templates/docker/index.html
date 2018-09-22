@@ -91,6 +91,7 @@ no images found
 <table>
     <tr>
         <th>container id</th>
+        <th>name</th>
         <th>image</th>
         <th>command</th>
         <th>state</th>
@@ -100,6 +101,7 @@ no images found
 {{range .Containers}}
     <tr>
         <td>{{.Id}}</td>
+        <td>{{.Name}}</td>
         <td>{{.Image}}</td>
         <td>{{.Command}}</td>
         <td>{{.State}}</td>
