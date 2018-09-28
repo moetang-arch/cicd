@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"github.com/moetang-arch/cicd/webui/controller/dockercontroller"
 	"github.com/moetang-arch/cicd/webui/config"
+	"github.com/moetang-arch/cicd/webui/controller/dockercontroller"
 
 	"github.com/gin-gonic/gin"
 )

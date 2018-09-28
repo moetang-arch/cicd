@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/moetang-arch/cicd/webui/controller"
 	"github.com/moetang-arch/cicd/webui/config"
+	"github.com/moetang-arch/cicd/webui/controller"
 
 	"github.com/gin-gonic/gin"
 )

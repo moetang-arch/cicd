@@ -4,8 +4,8 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/moetang-arch/cicd/webui/docker"
 	"github.com/moetang-arch/cicd/webui/config"
+	"github.com/moetang-arch/cicd/webui/docker"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/render"
