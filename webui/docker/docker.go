@@ -65,6 +65,7 @@ func (this *Endpoint) PullImage() {
 type Image struct {
 	UseName string
 	Tags    []string
+	ID      string
 }
 
 func (this *Endpoint) ListAllImages() ([]Image, error) {
@@ -79,9 +80,14 @@ func (this *Endpoint) ListAllImages() ([]Image, error) {
 
 	var result []Image
 	for _, v := range summaries {
+		var useName string
+		if len(v.RepoTags) > 0 {
+			useName = v.RepoTags[0]
+		}
 		result = append(result, Image{
-			UseName: v.RepoTags[0], // use first tag
+			UseName: useName, // use first tag
 			Tags:    v.RepoTags,
+			ID:      v.ID,
 		})
 	}
 
